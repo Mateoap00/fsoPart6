@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import './App.css'
 
+// TODO: COMMENT FOR EXERCISES 6.1 AND 6.2
+
 const Header = ({ title }) => {
     return (
         <h2>{title}</h2>
