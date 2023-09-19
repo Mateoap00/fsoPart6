@@ -1,7 +1,7 @@
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
-import voteReducer from './reducers/votesReducer';
+import voteReducer from './reducers/anecdotesReducer';
 import App from './App.jsx';
 import './index.css';
 
