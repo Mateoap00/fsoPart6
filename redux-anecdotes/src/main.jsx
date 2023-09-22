@@ -1,26 +1,34 @@
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
-import voteReducer from './reducers/anecdotesReducer';
+import { createStore, combineReducers } from 'redux';
+import anecdoteReducer from './reducers/anecdotesReducer';
+import filterReducer from './reducers/filterReducer';
 import App from './App.jsx';
 import './index.css';
 
-const votesStore = createStore(voteReducer);
+// 6.9 Better anecdotes, step7.
+// Implement filtering for the anecdotes that are displayed to the user.
+const reducer = combineReducers({
+    anecdotes: anecdoteReducer,
+    filter: filterReducer,
+});
 
-votesStore.subscribe(() => {
-    const votes = votesStore.getState();
-    console.log(votes);
+const store = createStore(reducer);
+
+store.subscribe(() => {
+    const currentState = store.getState();
+    console.log(currentState);
 });
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 const renderApp = () => {
     root.render(
-        <Provider store={votesStore}>
+        <Provider store={store}>
             <App />
         </Provider>
     );
 };
 
 renderApp();
-votesStore.subscribe(renderApp);
+store.subscribe(renderApp);

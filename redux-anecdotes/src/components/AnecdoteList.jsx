@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { vote } from './reducers/anecdotesReducer';
+import { vote } from '../reducers/anecdotesReducer';
 
 const Anecdote = ({ anecdote, handleVote }) => {
     return (
@@ -22,7 +22,7 @@ const AnecdoteList = () => {
     // 6.5: anecdotes, step3.
     // Make sure that the anecdotes are ordered by the number of votes.
     const anecdotesInOrder = useSelector((state) =>
-        state.sort((current, next) => next.votes - current.votes)
+        state.anecdotes.sort((current, next) => next.votes - current.votes)
     );
 
     const handleVote = (id) => {
@@ -31,8 +31,8 @@ const AnecdoteList = () => {
 
     return (
         <>
-            <h2>Anecdotes of the day</h2>
-            <div>
+            <h2>All registered Anecdotes</h2>
+            <div className="anecdotesList">
                 {anecdotesInOrder.map((anecdote) => {
                     return (
                         <Anecdote

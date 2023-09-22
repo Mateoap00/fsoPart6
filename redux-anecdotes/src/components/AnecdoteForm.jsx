@@ -1,11 +1,11 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { newAnecdote } from './reducers/anecdotesReducer';
+import { newAnecdote } from '../reducers/anecdotesReducer';
 
 // 6.7: anecdotes, step5.
 // Separate the creation of new anecdotes into a component called AnecdoteForm.
 const AnecdoteForm = () => {
     const dispatch = useDispatch();
-    const anecdotes = useSelector((state) => state);
+    const anecdotes = useSelector((state) => state.anecdotes);
 
     const addAnecdote = (event) => {
         event.preventDefault();
@@ -17,7 +17,7 @@ const AnecdoteForm = () => {
 
     return (
         <form onSubmit={addAnecdote}>
-            <h3>Add new anecdotes here!</h3>
+            <h2>Add new anecdotes here!</h2>
             <input
                 type="text"
                 placeholder="Write a new anecdote..."
