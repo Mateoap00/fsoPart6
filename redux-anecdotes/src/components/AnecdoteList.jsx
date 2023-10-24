@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { vote } from '../reducers/anecdotesReducer';
+import { createNotification } from '../reducers/notificationReducer';
 
 const Anecdote = ({ anecdote, handleVote }) => {
     return (
@@ -9,7 +10,7 @@ const Anecdote = ({ anecdote, handleVote }) => {
                 <div>
                     <strong>{`has ${anecdote.votes} votes`}</strong>
                 </div>
-                <button onClick={() => handleVote(anecdote.id)}>Vote</button>
+                <button onClick={() => handleVote(anecdote)}>Vote</button>
             </div>
         </>
     );
@@ -21,12 +22,21 @@ const AnecdoteList = () => {
     const dispatch = useDispatch();
     // 6.5: anecdotes, step3.
     // Make sure that the anecdotes are ordered by the number of votes.
-    const anecdotesInOrder = useSelector((state) =>
-        state.anecdotes.sort((current, next) => next.votes - current.votes)
+    const anecdotes = [...useSelector((state) => state.anecdotes)];
+    const anecdotesInOrder = anecdotes.sort(
+        (current, next) => next.votes - current.votes
     );
 
-    const handleVote = (id) => {
+    // 6.13 Better anecdotes, step11
+    // Notification component displays a message for five seconds when the user votes for an anecdote
+    // or creates a new anecdote.
+    const handleVote = ({ id, content }) => {
         dispatch(vote(id));
+        const msg = `You have voted for the anecdote: ${content}`;
+        dispatch(createNotification(msg));
+        setTimeout(() => {
+            dispatch(createNotification(''));
+        }, 5000);
     };
 
     return (

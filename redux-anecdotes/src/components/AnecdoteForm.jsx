@@ -1,18 +1,25 @@
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { newAnecdote } from '../reducers/anecdotesReducer';
+import { createNotification } from '../reducers/notificationReducer';
 
 // 6.7: anecdotes, step5.
 // Separate the creation of new anecdotes into a component called AnecdoteForm.
 const AnecdoteForm = () => {
     const dispatch = useDispatch();
-    const anecdotes = useSelector((state) => state.anecdotes);
 
+    // 6.13 Better anecdotes, step11
+    // Notification component displays a message for five seconds when the user votes for an anecdote
+    // or creates a new anecdote.
     const addAnecdote = (event) => {
         event.preventDefault();
         const content = event.target.inputAnecdote.value;
         event.target.inputAnecdote.value = '';
-        const id = anecdotes.length;
-        dispatch(newAnecdote(id, content));
+        dispatch(newAnecdote(content));
+        const msg = `New anecdote added: ${content}`;
+        dispatch(createNotification(msg));
+        setTimeout(() => {
+            dispatch(createNotification(''));
+        }, 5000);
     };
 
     return (

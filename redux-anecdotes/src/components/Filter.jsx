@@ -5,19 +5,16 @@ import { setFilter } from '../reducers/filterReducer';
 // Implement filtering for the anecdotes that are displayed to the user.
 const Filter = () => {
     const dispatch = useDispatch();
-
+    const anecdotes = useSelector((state) => state.anecdotes);
     const filterWith = useSelector((state) => state.filter);
-    const anecdoteFound = useSelector((state) => {
-        if (filterWith === '') {
-            return undefined;
-        } else {
-            return state.anecdotes.find((anecdote) =>
-                anecdote.content
-                    .toUpperCase()
-                    .includes(filterWith.toUpperCase())
-            );
-        }
-    });
+    const anecdoteFound =
+        filterWith === ''
+            ? undefined
+            : anecdotes.find((anecdote) =>
+                  anecdote.content
+                      .toUpperCase()
+                      .includes(filterWith.toUpperCase())
+              );
 
     const handleChange = (event) => {
         const value = event.target.value;
