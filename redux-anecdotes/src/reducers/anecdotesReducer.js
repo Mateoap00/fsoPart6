@@ -3,9 +3,9 @@ import { createSlice } from '@reduxjs/toolkit';
 // 6.11 Better anecdotes, step9
 // Change the definition of the anecdote reducer and action creators to use the Redux Toolkit's createSlice function.
 
-const generateId = () => {
-    return Number((Math.random() * 1000000).toFixed(0));
-};
+// const generateId = () => {
+//     return Number((Math.random() * 1000000).toFixed(0));
+// };
 
 // Redux state management using redux/toolkit and createSlice for anecdotes.
 const anecdotesSlice = createSlice({
@@ -17,13 +17,8 @@ const anecdotesSlice = createSlice({
             return newState;
         },
         newAnecdote(state, action) {
-            const id = generateId();
-            const content = action.payload;
-            state.push({
-                id,
-                content,
-                votes: 0,
-            });
+            const newAnecdote = action.payload;
+            state.push(newAnecdote);
         },
         vote(state, action) {
             const id = action.payload;

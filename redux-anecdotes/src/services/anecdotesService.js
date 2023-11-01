@@ -9,4 +9,15 @@ const getAnecdotes = async () => {
     return response.data;
 };
 
-export default { getAnecdotes };
+// 6.15 Anecdotes and the backend, step2
+// Modify the creation of new anecdotes, so that the anecdotes are stored in the backend.
+const createAnecdote = async (content) => {
+    const newAnecdote = {
+        content,
+        votes: 0,
+    };
+    const response = await axios.post(url, newAnecdote);
+    return response.data;
+};
+
+export default { getAnecdotes, createAnecdote };
