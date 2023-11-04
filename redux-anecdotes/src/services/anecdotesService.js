@@ -20,4 +20,17 @@ const createAnecdote = async (content) => {
     return response.data;
 };
 
-export default { getAnecdotes, createAnecdote };
+// 6.18 Anecdotes and the backend, step 5.
+// Save votes to the backend using action async action creators.
+const voteAnecdote = async (id) => {
+    const findAnecdote = await axios.get(`${url}/${id}`);
+    const anecdoteToVote = findAnecdote.data;
+    const updatedAnecdote = {
+        ...anecdoteToVote,
+        votes: anecdoteToVote.votes + 1,
+    };
+    const response = await axios.put(`${url}/${id}`, updatedAnecdote);
+    return response.data;
+};
+
+export default { getAnecdotes, createAnecdote, voteAnecdote };

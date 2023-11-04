@@ -14,19 +14,10 @@ import './index.css';
 
 // const store = createStore(reducer);
 
-console.log(store.getState());
-
 store.subscribe(() => console.log(store.getState()));
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-
-const renderApp = () => {
-    root.render(
-        <Provider store={store}>
-            <App />
-        </Provider>
-    );
-};
-
-renderApp();
-store.subscribe(renderApp);
+ReactDOM.createRoot(document.getElementById('root')).render(
+    <Provider store={store}>
+        <App />
+    </Provider>
+);

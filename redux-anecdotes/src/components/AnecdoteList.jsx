@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { vote } from '../reducers/anecdotesReducer';
-import { createNotification } from '../reducers/notificationReducer';
+import { voteForAnecdote } from '../reducers/anecdotesReducer';
+import { setNotification } from '../reducers/notificationReducer';
 
 const Anecdote = ({ anecdote, handleVote }) => {
     return (
@@ -30,13 +30,16 @@ const AnecdoteList = () => {
     // 6.13 Better anecdotes, step11
     // Notification component displays a message for five seconds when the user votes for an anecdote
     // or creates a new anecdote.
+
+    // 6.18 Anecdotes and the backend, step 5.
+    // Save votes to the backend using action async action creators.
     const handleVote = ({ id, content }) => {
-        dispatch(vote(id));
+        dispatch(voteForAnecdote(id));
+
+        // 6.19 Anecdotes and the backend, step 6.
+        // Make an action creator to show a notification and clear it.
         const msg = `You have voted for the anecdote: ${content}`;
-        dispatch(createNotification(msg));
-        setTimeout(() => {
-            dispatch(createNotification(''));
-        }, 5000);
+        dispatch(setNotification(msg, 5));
     };
 
     return (

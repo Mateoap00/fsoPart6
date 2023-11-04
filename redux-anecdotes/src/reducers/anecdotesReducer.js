@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import anecdotesService from '../services/anecdotesService';
 
 // 6.11 Better anecdotes, step9
 // Change the definition of the anecdote reducer and action creators to use the Redux Toolkit's createSlice function.
@@ -38,6 +39,33 @@ const anecdotesSlice = createSlice({
 
 export const { setAnecdotes, newAnecdote, vote } = anecdotesSlice.actions;
 export default anecdotesSlice.reducer;
+
+// 6.16 Anecdotes and the backend, step 3.
+// Modify the initialization of the Redux store to happen using asynchronous action creators.
+export const initializeAnecdotes = () => {
+    return async (dispatch) => {
+        const anecdotes = await anecdotesService.getAnecdotes();
+        dispatch(setAnecdotes(anecdotes));
+    };
+};
+
+// 6.17 Anecdotes and the backend, step 4.
+// Modify the creation of a new anecdote to happen using asynchronous action creators.
+export const addAnecdote = (content) => {
+    return async (dispatch) => {
+        const anecdote = await anecdotesService.createAnecdote(content);
+        dispatch(newAnecdote(anecdote));
+    };
+};
+
+// 6.18 Anecdotes and the backend, step 5.
+// Save votes to the backend using action async action creators.
+export const voteForAnecdote = (id) => {
+    return async (dispatch) => {
+        const anecdoteVoted = await anecdotesService.voteAnecdote(id);
+        dispatch(vote(anecdoteVoted.id));
+    };
+};
 
 // const anecdoteReducer = (state = initialAnecdotes, action) => {
 //     let id = 0;

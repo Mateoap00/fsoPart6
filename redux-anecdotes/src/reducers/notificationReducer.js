@@ -10,7 +10,22 @@ const notificationSlice = createSlice({
             const msg = action.payload;
             return msg;
         },
+        clearNotification() {
+            return '';
+        },
     },
 });
-export const { createNotification } = notificationSlice.actions;
+export const { createNotification, clearNotification } =
+    notificationSlice.actions;
 export default notificationSlice.reducer;
+
+// 6.19 Anecdotes and the backend, step 6.
+// Make an action creator to show a notification and clear it.
+export const setNotification = (msg, timeInSec) => {
+    return (dispatch) => {
+        dispatch(createNotification(msg));
+        setTimeout(() => {
+            dispatch(clearNotification());
+        }, timeInSec * 1000);
+    };
+};
