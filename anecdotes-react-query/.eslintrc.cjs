@@ -17,10 +17,7 @@ module.exports = {
     settings: { react: { version: '18.2' } },
     plugins: ['react-refresh', 'jest', 'prettier'],
     rules: {
-        'react-refresh/only-export-components': [
-            'warn',
-            { allowConstantExport: true },
-        ],
+        'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
         'linebreak-style': ['error', 'unix'],
         eqeqeq: 'error',
         'object-curly-spacing': ['error', 'always'],

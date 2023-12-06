@@ -1,9 +1,11 @@
-import { useSelector } from 'react-redux';
+import { useNotificationState } from '../NotificationContext';
 
 // 6.12 Better anecdotes, step10
 // Extend the component Notification component so it renders the message stored in the Redux store.
 const Notification = () => {
-    const notification = useSelector((state) => state.notification);
+    // Exercise 6.23.
+    // Implement the application's notification state management using the useReducer hook and context.
+    const notification = useNotificationState();
 
     return (
         <>

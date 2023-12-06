@@ -12,6 +12,14 @@ export const getAnecdotes = async () => {
 // Exercise 6.21
 // Implement adding new anecdotes to the server using React Query. The application should render a new anecdote by default.
 export const createAnecdote = async (content) => {
+    // Exercise 6.24.
+    // Implement error handling for the insertion. Display a notification to the user in case of a failed POST request.
+    if (content.length < 5) {
+        const error = new Error(
+            'Error: Anecdote content must be at least 5 characters long!'
+        );
+        throw error;
+    }
     const newAnecdote = {
         content,
         votes: 0,

@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { updateAnecdote } from '../services/anecdotesService';
+import { useNotificationDispatch } from '../NotificationContext';
 
 const Anecdote = ({ anecdote, handleVote }) => {
     return (
@@ -21,7 +22,14 @@ const AnecdoteList = ({ anecdotes }) => {
     // Exercise 6.22
     // Implement voting for anecdotes using again the React Query. The application should automatically render the
     // increased number of votes for the voted anecdote.
+    const anecdotesInOrder = anecdotes.sort(
+        (current, next) => next.votes - current.votes
+    );
     const queryClient = useQueryClient();
+
+    // Exercise 6.23.
+    // Implement the application's notification state management using the useReducer hook and context.
+    const dispatch = useNotificationDispatch();
 
     const updateAnecdoteMutation = useMutation({
         mutationFn: updateAnecdote,
@@ -36,18 +44,25 @@ const AnecdoteList = ({ anecdotes }) => {
                     }
                 });
             queryClient.setQueryData(['anecdotes'], updatedAnecdotes);
+
+            const msg = `Anecdote "${updatedAnecdote.content}" voted! It now has ${updatedAnecdote.votes} votes`;
+
+            dispatch({
+                type: 'NOTIFY',
+                payload: msg,
+            });
+            setTimeout(() => {
+                dispatch({
+                    type: 'NOTIFY',
+                    payload: '',
+                });
+            }, 3000);
         },
     });
 
     const handleVote = (anecdote) => {
-        const msg = `You have voted for the anecdote: ${anecdote.content}.`;
         updateAnecdoteMutation.mutate(anecdote);
-        console.log(msg);
     };
-
-    const anecdotesInOrder = anecdotes.sort(
-        (current, next) => next.votes - current.votes
-    );
 
     return (
         <>

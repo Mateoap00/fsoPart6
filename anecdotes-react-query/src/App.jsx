@@ -1,10 +1,9 @@
 import './App.css';
 import { useQuery } from '@tanstack/react-query';
 import { getAnecdotes } from './services/anecdotesService';
-// import Notification from './components/Notification';
+import Notification from './components/Notification';
 import AnecdoteForm from './components/AnecdoteForm';
 import AnecdoteList from './components/AnecdoteList';
-// import Filter from './components/Filter';
 
 // Exercise 6.20:
 // Implement retrieving anecdotes from the server using React Query.
@@ -14,8 +13,6 @@ const App = () => {
         queryFn: getAnecdotes,
         refetchOnWindowFocus: false,
     });
-
-    console.log(JSON.parse(JSON.stringify(anecdotesQuery)));
 
     if (anecdotesQuery.isError) {
         const msg = `Anecdotes service is not available due to problems in the server.`;
@@ -30,9 +27,7 @@ const App = () => {
     return (
         <>
             <h1>Redux-Anecdotes App</h1>
-            {/* <Notification />
-            <Filter />
-             */}
+            <Notification />
             <AnecdoteForm />
             <AnecdoteList anecdotes={anecdotes} />
         </>
