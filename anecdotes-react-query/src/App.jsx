@@ -26,7 +26,7 @@ const App = () => {
 
     return (
         <>
-            <h1>Redux-Anecdotes App</h1>
+            <h1>Anecdotes React Query App</h1>
             <Notification />
             <AnecdoteForm />
             <AnecdoteList anecdotes={anecdotes} />
